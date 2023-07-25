@@ -51,7 +51,5 @@ dependencies {
 
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
 
-    implementation 'com.intuit.sdp:sdp-android:1.1.0'
-
     implementation 'com.onesignal:OneSignal:[4.0.0, 4.99.99]'
 }
