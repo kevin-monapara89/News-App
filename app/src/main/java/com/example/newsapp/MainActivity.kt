@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var uri: Uri
     val IMAGE_CODE = 3
+    lateinit var userArrayList: ArrayList<NewsModel>
     lateinit var dbRef: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,13 +26,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        dbRef = FirebaseDatabase.getInstance().reference
+        getNews()
 
         binding.rcvnews.layoutManager = LinearLayoutManager(this)
         binding.rcvnews.adapter = adapter
-//        var key = dbRef.root.push().key
-//        var data = NewsModel(key!!, title, desc, image )
-        dbRef.root.child("News").child("key").addValueEventListener(object : ValueEventListener{
+
+    }
+
+    private fun getNews() {
+
+        dbRef = FirebaseDatabase.getInstance().getReference("News")
+
+        dbRef.root.child("News").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 var Newslist = ArrayList<NewsModel>()
@@ -40,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                     var model = snap.getValue(NewsModel::class.java)
                     Newslist.add(model!!)
                 }
+                adapter.update(Newslist)
             }
             override fun onCancelled(error: DatabaseError) {
 
