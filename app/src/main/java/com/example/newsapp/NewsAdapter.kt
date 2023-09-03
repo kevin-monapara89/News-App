@@ -40,13 +40,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.NewsHolder>() {
                 txtcategory.text = category
                 txtdate.text = date
             }
-
-            val isVisible : Boolean = newslist.get(position).visibility
-            holder.binding.newsitem.visibility = if (isVisible){
-              holder.binding.click.setText("Tap To Close ▲")
-                View.VISIBLE
-            } else View.GONE
-
+            
             holder.binding.content.setOnClickListener {
                 newslist.get(position).visibility = !newslist.get(position).visibility
                 notifyItemChanged(position)
